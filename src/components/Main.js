@@ -36,7 +36,6 @@ export default function Main() {
   );
 }
 
-
 ReactDOM.render((
   <>
   <div className="popup profile-popup">
@@ -74,7 +73,7 @@ ReactDOM.render((
         <div className="popup avatar-popup">
             <div className="popup__container">
                 <button aria-label="Закрыть" className="popup__close-button">Х</button>
-                <h2 className="popup__title">Новое место</h2>
+                <h2 className="popup__title">Обновить аватар</h2>
                 <form className="popup__form" id="avatar" novalidate>
                     <input autocomplete="off" className="popup__input popup__input_type_link" id="popup__input_avatar-url"
                         name="avatar" placeholder="Ссылка на изображение" type="url" required />
