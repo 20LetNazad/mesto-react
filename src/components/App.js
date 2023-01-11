@@ -7,10 +7,9 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 
 export default function App() {
-  const [isEditProfilePopupOpen, setEditProfilePopupOpen] =
-    React.useState(false);
-  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(0);
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(0);
+  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(0);
 
   function handleEditProfileClick() {
     setEditProfilePopupOpen(!isEditProfilePopupOpen);
@@ -22,6 +21,12 @@ export default function App() {
 
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+  }
+
+  function closeAllPopups() {
+    setEditProfilePopupOpen(0);
+    setAddPlacePopupOpen(0);
+    setEditAvatarPopupOpen(0);
   }
 
   return (
@@ -71,6 +76,7 @@ export default function App() {
           </>
         }
         isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
       />
       <PopupWithForm
         name="card"
@@ -105,6 +111,7 @@ export default function App() {
           </>
         }
         isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
       />
       <PopupWithForm
         name="avatar"
@@ -127,6 +134,7 @@ export default function App() {
           </>
         }
         isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
       />
       <ImagePopup />
       <template className="template">
