@@ -44,33 +44,33 @@ export default function App() {
         children={
           <>
             <input
-              autocomplete="off"
-              class="popup__input popup__input_type_name"
+              autoComplete="off"
+              className="popup__input popup__input_type_name"
               id="popup__input_name"
               name="name"
               placeholder="Имя"
               type="text"
-              minlength="2"
-              maxlength="40"
+              minLength="2"
+              maxLength="40"
               required
             />
             <span
-              class="popup__input-error"
+              className="popup__input-error"
               id="popup__input_name-error"
             ></span>
             <input
-              autocomplete="off"
-              class="popup__input popup__input_type_description"
+              autoComplete="off"
+              className="popup__input popup__input_type_description"
               id="popup__input_description"
               name="about"
               placeholder="Описаине"
               type="text"
-              minlength="2"
-              maxlength="200"
+              minLength="2"
+              maxLength="200"
               required
             />
             <span
-              class="popup__input-error"
+              className="popup__input-error"
               id="popup__input_description-error"
             ></span>
           </>
@@ -84,30 +84,30 @@ export default function App() {
         children={
           <>
             <input
-              autocomplete="off"
-              class="popup__input popup__input_type_image-name"
+              autoComplete="off"
+              className="popup__input popup__input_type_image-name"
               id="popup__input_place-name"
               name="cardName"
               placeholder="Название"
               type="text"
-              minlength="2"
-              maxlength="30"
+              minLength="2"
+              maxLength="30"
               required
             />
             <span
-              class="popup__input-error"
+              className="popup__input-error"
               id="popup__input_place-name-error"
             ></span>
             <input
-              autocomplete="off"
-              class="popup__input popup__input_type_link"
+              autoComplete="off"
+              className="popup__input popup__input_type_link"
               id="popup__input_url"
               name="link"
               placeholder="Ссылка на картинку"
               type="url"
               required
             />
-            <span class="popup__input-error" id="popup__input_url-error"></span>
+            <span className="popup__input-error" id="popup__input_url-error"></span>
           </>
         }
         isOpen={isAddPlacePopupOpen}
@@ -119,8 +119,8 @@ export default function App() {
         children={
           <>
             <input
-              autocomplete="off"
-              class="popup__input popup__input_type_link"
+              autoComplete="off"
+              className="popup__input popup__input_type_link"
               id="popup__input_avatar-url"
               name="avatar"
               placeholder="Ссылка на изображение"
@@ -128,7 +128,7 @@ export default function App() {
               required
             />
             <span
-              class="popup__input-error"
+              className="popup__input-error"
               id="popup__input_avatar-url-error"
             ></span>
           </>
