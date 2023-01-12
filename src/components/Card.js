@@ -1,11 +1,21 @@
+import React from 'react';
+
 export default function Card(props) {
+  function handleCardClick() {
+    props.onCardClick(props.card);
+  }
+
   return (
     <li className="cards__item element">
       <button
         aria-label="Удалить карточку"
         className="element__delete element__delete_visible"
       ></button>
-      <img className="element__image" src={props.card.link} />
+      <img
+        className="element__image"
+        src={props.card.link}
+        onClick={handleCardClick}
+      />
       <div className="element__info">
         <h2 className="element__title">{props.card.name}</h2>
         <div className="element__like-block">

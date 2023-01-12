@@ -7,26 +7,33 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 
 export default function App() {
-  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(0);
-  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(0);
-  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(0);
+  const [isEditProfilePopupOpen, setEditProfilePopupOpen] =
+    React.useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState(false);
 
   function handleEditProfileClick() {
-    setEditProfilePopupOpen(!isEditProfilePopupOpen);
+    setEditProfilePopupOpen(true);
   }
 
   function handleAddPlaceClick() {
-    setAddPlacePopupOpen(!isAddPlacePopupOpen);
+    setAddPlacePopupOpen(true);
   }
 
   function handleEditAvatarClick() {
-    setEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+    setEditAvatarPopupOpen(true);
+  }
+
+  function handleCardClick(card) {
+    setSelectedCard(card);
   }
 
   function closeAllPopups() {
-    setEditProfilePopupOpen(0);
-    setAddPlacePopupOpen(0);
-    setEditAvatarPopupOpen(0);
+    setEditProfilePopupOpen(false);
+    setAddPlacePopupOpen(false);
+    setEditAvatarPopupOpen(false);
+    setSelectedCard(false);
   }
 
   return (
@@ -36,6 +43,7 @@ export default function App() {
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
+        onCardClick={handleCardClick}
       />
       <Footer />
       <PopupWithForm
@@ -139,7 +147,7 @@ export default function App() {
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
       />
-      <ImagePopup />
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </div>
   );
 }
