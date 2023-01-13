@@ -13,11 +13,11 @@ export default function ImagePopup(props) {
         </button>
         <img
           className="image-popup__img"
-          src={props.card.link}
-          alt={props.card.name}
+          src={props.card ? props.card.link : ''}
+          alt={props.card ? props.card.name : ''}
         />
         <figcaption className="image-popup__caption">
-          {props.card.name}
+          {props.card ? props.card.name : ''}
         </figcaption>
       </figure>
     </div>
