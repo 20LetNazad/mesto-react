@@ -1,14 +1,19 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import api from '../utils/Api';
 import Card from './Card';
 
-export default function Main(props) {
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
-  const [cards, setCards] = React.useState([]);
+export default function Main({
+  onEditAvatar,
+  onEditProfile,
+  onAddPlace,
+  onCardClick,
+}) {
+  const [userName, setUserName] = useState('');
+  const [userDescription, setUserDescription] = useState('');
+  const [userAvatar, setUserAvatar] = useState('');
+  const [cards, setCards] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     Promise.all([api.userInfo(), api.renderCards()])
       .then(([userData, cardData]) => {
         setUserName(userData.name);
@@ -26,7 +31,7 @@ export default function Main(props) {
     <main>
       <section className="profile">
         <div className="profile__content">
-          <div className="profile__button" onClick={props.onEditAvatar}></div>
+          <div className="profile__button" onClick={onEditAvatar}></div>
           <img
             className="profile__avatar"
             alt="Аватар пользователя"
@@ -38,7 +43,7 @@ export default function Main(props) {
               <button
                 aria-label="Редактировать профиль"
                 className="profile__edit-button"
-                onClick={props.onEditProfile}
+                onClick={onEditProfile}
               ></button>
             </div>
             <p className="profile__description">{userDescription}</p>
@@ -47,7 +52,7 @@ export default function Main(props) {
         <button
           aria-label="Добавить изображение"
           className="add-button"
-          onClick={props.onAddPlace}
+          onClick={onAddPlace}
         ></button>
       </section>
       <section className="cards">
@@ -56,7 +61,7 @@ export default function Main(props) {
             <Card
               key={cardData._id}
               card={cardData}
-              onCardClick={props.onCardClick}
+              onCardClick={onCardClick}
             />
           ))}
         </ul>
