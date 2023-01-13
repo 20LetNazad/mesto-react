@@ -49,6 +49,7 @@ export default function App() {
       <PopupWithForm
         name="profile"
         title="Редактировать профиль"
+        buttonText="Сохранить"
         children={
           <>
             <input
@@ -89,6 +90,7 @@ export default function App() {
       <PopupWithForm
         name="card"
         title="Новое место"
+        buttonText="Создать"
         children={
           <>
             <input
@@ -127,6 +129,7 @@ export default function App() {
       <PopupWithForm
         name="avatar"
         title="Обновить аватар"
+        buttonText="Сохранить"
         children={
           <>
             <input
