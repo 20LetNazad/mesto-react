@@ -14,6 +14,8 @@ export default function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
 
+  const [cards, setCards] = React.useState([]);
+
   const [currentUser, setCurrentUser] = React.useState('');
 
   useEffect(() => {
@@ -26,6 +28,21 @@ export default function App() {
         console.log(`Ошибка.....: ${err}`);
       });
   }, []);
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+    });
+  }
+
+  function handleCardDelete(card) {
+    api.removeCard(card._id).then(() => {
+      const newCardsArr = cards.filter((cardElement) => cardElement !== card);
+      setCards(newCardsArr);
+    });
+  }
 
   function handleEditProfileClick() {
     setEditProfilePopupOpen(true);
@@ -59,6 +76,8 @@ export default function App() {
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
           onCardClick={handleCardClick}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
         />
         <Footer />
         <PopupWithForm

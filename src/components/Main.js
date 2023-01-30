@@ -9,6 +9,8 @@ export default function Main({
   onEditProfile,
   onAddPlace,
   onCardClick,
+  onCardLike,
+  onCardDelete,
 }) {
   const currentUser = React.useContext(CurrentUserContext);
   const [cards, setCards] = useState([]);
@@ -59,6 +61,8 @@ export default function Main({
               key={cardData._id}
               card={cardData}
               onCardClick={onCardClick}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
             />
           ))}
         </ul>
