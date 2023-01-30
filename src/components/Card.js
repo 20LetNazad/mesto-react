@@ -1,16 +1,27 @@
 import React from 'react';
+import CurrentUserContext from '../contexts/CurrentUserContext';
 
 export default function Card({ onCardClick, card }) {
   function handleCardClick() {
     onCardClick(card);
   }
 
+  const currentUser = React.useContext(CurrentUserContext);
+  const isOwn = card.owner._id === currentUser._id;
+  const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+  const cardLikeButtonClassName = `card__like-button ${
+    isLiked && 'card__like-button_active'
+  }`;
+
   return (
     <li className="cards__item element">
-      <button
-        aria-label="Удалить карточку"
-        className="element__delete element__delete_visible"
-      ></button>
+      {isOwn && (
+        <button
+          className="element__delete element__delete_visible"
+          onClick={handleCardClick}
+        />
+      )}
       <img
         className="element__image"
         src={card.link}
