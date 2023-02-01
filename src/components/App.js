@@ -43,6 +43,13 @@ export default function App() {
     });
   }
 
+  function handleUpdateUser(userData) {
+    api.editProfile(userData).then((newData) => {
+      setCurrentUser(newData);
+      closeAllPopups();
+    });
+  }
+
   function handleEditProfileClick() {
     setEditProfilePopupOpen(true);
   }
@@ -82,6 +89,7 @@ export default function App() {
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
+          onSubmit={handleUpdateUser}
         />
         <PopupWithForm
           name="card"

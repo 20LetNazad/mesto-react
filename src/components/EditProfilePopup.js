@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import PopupWithForm from './PopupWithForm';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 
-export default function EditProfilePopup({ isOpen, onClose }) {
+export default function EditProfilePopup({ isOpen, onClose, onSubmit }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const currentUser = useContext(CurrentUserContext);
@@ -11,6 +11,15 @@ export default function EditProfilePopup({ isOpen, onClose }) {
     setName(currentUser.name);
     setDescription(currentUser.about);
   }, [currentUser]);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    onSubmit({
+      name,
+      about: description,
+    });
+  }
 
   function handleNameChange(e) {
     setName(e.target.value);
@@ -27,6 +36,7 @@ export default function EditProfilePopup({ isOpen, onClose }) {
       buttonText="Сохранить"
       isOpen={isOpen}
       onClose={onClose}
+      onSubmit={handleSubmit}
     >
       <input
         autoComplete="off"
