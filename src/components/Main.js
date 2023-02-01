@@ -1,6 +1,5 @@
 import React from 'react';
-import { useEffect, useState, useContext } from 'react';
-import api from '../utils/Api';
+import { useContext } from 'react';
 import Card from './Card';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 
@@ -11,20 +10,9 @@ export default function Main({
   onCardClick,
   onCardLike,
   onCardDelete,
+  cards,
 }) {
   const currentUser = useContext(CurrentUserContext);
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    api
-      .renderCards()
-      .then((cardData) => {
-        setCards(cardData);
-      })
-      .catch((err) => {
-        console.log(`Ошибка.....: ${err}`);
-      });
-  });
 
   return (
     <main>

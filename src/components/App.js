@@ -4,7 +4,7 @@ import api from '../utils/Api';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import PopupWithForm from './PopupWithForm';
+import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
@@ -19,10 +19,10 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState('');
 
   useEffect(() => {
-    api
-      .userInfo()
-      .then((userData) => {
+    Promise.all([api.userInfo(), api.renderCards()])
+      .then(([userData, cardData]) => {
         setCurrentUser(userData);
+        setCards(cardData);
       })
       .catch((err) => {
         console.log(`Ошибка.....: ${err}`);
@@ -54,6 +54,13 @@ export default function App() {
   function handleUpdateAvatar(userData) {
     api.editAvatar(userData).then((newAvatar) => {
       setCurrentUser(newAvatar);
+      closeAllPopups();
+    });
+  }
+
+  function handleAddPlaceSubmit(cardData) {
+    api.addCard(cardData).then((newCard) => {
+      setCards([newCard, ...cards]);
       closeAllPopups();
     });
   }
@@ -92,6 +99,7 @@ export default function App() {
           onCardClick={handleCardClick}
           onCardLike={handleCardLike}
           onCardDelete={handleCardDelete}
+          cards={cards}
         />
         <Footer />
         <EditProfilePopup
@@ -99,42 +107,11 @@ export default function App() {
           onClose={closeAllPopups}
           onSubmit={handleUpdateUser}
         />
-        <PopupWithForm
-          name="card"
-          title="Новое место"
-          buttonText="Создать"
+        <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
-        >
-          <input
-            autoComplete="off"
-            className="popup__input popup__input_type_image-name"
-            id="popup__input_place-name"
-            name="cardName"
-            placeholder="Название"
-            type="text"
-            minLength="2"
-            maxLength="30"
-            required
-          />
-          <span
-            className="popup__input-error"
-            id="popup__input_place-name-error"
-          ></span>
-          <input
-            autoComplete="off"
-            className="popup__input popup__input_type_link"
-            id="popup__input_url"
-            name="link"
-            placeholder="Ссылка на картинку"
-            type="url"
-            required
-          />
-          <span
-            className="popup__input-error"
-            id="popup__input_url-error"
-          ></span>
-        </PopupWithForm>
+          onSubmit={handleAddPlaceSubmit}
+        />
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
