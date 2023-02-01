@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import api from '../utils/Api';
 import Card from './Card';
 import CurrentUserContext from '../contexts/CurrentUserContext';
@@ -12,7 +12,7 @@ export default function Main({
   onCardLike,
   onCardDelete,
 }) {
-  const currentUser = React.useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);
   const [cards, setCards] = useState([]);
 
   useEffect(() => {

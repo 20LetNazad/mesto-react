@@ -14,10 +14,8 @@ export default function App() {
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
-
-  const [cards, setCards] = React.useState([]);
-
-  const [currentUser, setCurrentUser] = React.useState('');
+  const [cards, setCards] = useState([]);
+  const [currentUser, setCurrentUser] = useState('');
 
   useEffect(() => {
     api
