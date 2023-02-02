@@ -1,10 +1,20 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
 
 export default function AddPlacePopup({ isOpen, onClose, onSubmit }) {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
+
+  useEffect(() => {
+    if (isOpen) {
+      setName('');
+      setLink('');
+      console.log('open');
+      console.log(name);
+      console.log(link);
+    }
+  }, [isOpen]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -43,6 +53,7 @@ export default function AddPlacePopup({ isOpen, onClose, onSubmit }) {
         maxLength="30"
         required
         onChange={handleCardNameChange}
+        value={name || ''}
       />
       <span
         className="popup__input-error"
@@ -57,6 +68,7 @@ export default function AddPlacePopup({ isOpen, onClose, onSubmit }) {
         type="url"
         required
         onChange={handleLinkChange}
+        value={link || ''}
       />
       <span className="popup__input-error" id="popup__input_url-error"></span>
     </PopupWithForm>

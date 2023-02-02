@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import '../index.css';
 import api from '../utils/Api';
 import Header from './Header';
 import Main from './Main';
@@ -16,7 +15,7 @@ export default function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [cards, setCards] = useState([]);
-  const [currentUser, setCurrentUser] = useState('');
+  const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
     Promise.all([api.userInfo(), api.renderCards()])
@@ -32,37 +31,65 @@ export default function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-    });
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch((err) => {
+        console.log(`Ошибка.....: ${err}`);
+      });
   }
 
   function handleCardDelete(card) {
-    api.removeCard(card._id).then(() => {
-      const newCardsArr = cards.filter((cardElement) => cardElement !== card);
-      setCards(newCardsArr);
-    });
+    api
+      .removeCard(card._id)
+      .then(() => {
+        setCards((cardElement) =>
+          cardElement.filter((c) => c._id !== card._id && c)
+        );
+      })
+      .catch((err) => {
+        console.log(`Ошибка.....: ${err}`);
+      });
   }
 
   function handleUpdateUser(userData) {
-    api.editProfile(userData).then((newData) => {
-      setCurrentUser(newData);
-      closeAllPopups();
-    });
+    api
+      .editProfile(userData)
+      .then((newData) => {
+        setCurrentUser(newData);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(`Ошибка.....: ${err}`);
+      });
   }
 
   function handleUpdateAvatar(userData) {
-    api.editAvatar(userData).then((newAvatar) => {
-      setCurrentUser(newAvatar);
-      closeAllPopups();
-    });
+    api
+      .editAvatar(userData)
+      .then((newAvatar) => {
+        setCurrentUser(newAvatar);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(`Ошибка.....: ${err}`);
+      });
   }
 
   function handleAddPlaceSubmit(cardData) {
-    api.addCard(cardData).then((newCard) => {
-      setCards([newCard, ...cards]);
-      closeAllPopups();
-    });
+    api
+      .addCard(cardData)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(`Ошибка.....: ${err}`);
+      });
   }
 
   function handleEditProfileClick() {
